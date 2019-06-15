@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:yek_nahal/di/MainScope.dart';
 
 class HomeTab extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _HomeTab();
   }
-
 }
 
-class _HomeTab extends State<HomeTab>{
-
+class _HomeTab extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        //alignment:new Alignment(x, y)
-        children: <Widget>[
-          new Icon(Icons.monetization_on, size: 36.0, color: const Color.fromRGBO(218, 165, 32, 1.0)),
-          new Positioned(
-            left: 20.0,
-            child: new Icon(Icons.monetization_on, size: 36.0, color: const Color.fromRGBO(218, 165, 32, 1.0)),
-          ),
-          new Positioned(
-            left:40.0,
-            child: new Icon(Icons.monetization_on, size: 36.0, color: const Color.fromRGBO(218, 165, 32, 1.0)),
-          )
-
-        ],
-      ),
+    return ScopedModelDescendant<MainScope>(
+      builder: (BuildContext context, Widget parent, MainScope model) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 100),
+              child: Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: <Widget>[
+                  Card(
+                    margin: EdgeInsets.all(20),
+                    color: Colors.blue,
+                    elevation: 10,
+                    child: Text('salam',style: TextStyle(color: Colors.black,),),
+                  ),
+                  Image.asset('assets/images/ic_toolbar.png'),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
-
 }

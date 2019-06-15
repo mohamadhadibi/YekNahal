@@ -30,7 +30,7 @@ class _MyApp extends State<MyApp>{
             buttonColor: Colors.tealAccent,
             brightness: Brightness.light,
         ),
-        home: SplashPage(),
+        home: MainPage(),
         onGenerateRoute: (RouteSettings settings){
           final arguments = settings.arguments;
           switch(settings.name){

@@ -76,11 +76,14 @@ class SplashPage extends StatelessWidget {
 
         if(result['status']==200){
           var data = UserOb.fromJson(result['data']);
-          Navigator.pushReplacementNamed(
-            context,
-            rout_main,
-          );
+
+        }else{
+
         }
+        Navigator.pushReplacementNamed(
+          context,
+          rout_main,
+        );
         return true;
       }
     } catch (error) {
