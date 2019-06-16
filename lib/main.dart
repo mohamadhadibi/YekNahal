@@ -4,6 +4,7 @@ import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/pages/page_main.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
 import 'package:yek_nahal/utils/routs.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +24,13 @@ class _MyApp extends State<MyApp>{
     return ScopedModel<MainScope>(
       model: MainScope(),
       child: MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale("fa", "IR"),
+        ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: Colors.teal,
