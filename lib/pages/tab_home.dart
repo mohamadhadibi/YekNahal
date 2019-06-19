@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 
 class HomeTab extends StatefulWidget {
@@ -36,18 +37,29 @@ class _HomeTab extends State<HomeTab> {
                 alignment: AlignmentDirectional.topCenter,
                 children: <Widget>[
                   Image.asset('assets/images/ic_toolbar.png'),
-                  getHeaderCard((_token == "") ? false : true),
+                  getHeaderCard(_token != ""),
                 ],
               ),
             ),
+            Container(
+              alignment: AlignmentDirectional.topStart,
+              margin: EdgeInsetsDirectional.only(start: 20),
+              child: Text('آخرین مطالب'),
+            ),
+            Expanded(child: RowBlog()),
             Card(
-              margin: EdgeInsets.all(20),
-              color: Colors.blue,
-              elevation: 10,
-              child: Text(
-                'salam',
-                style: TextStyle(
-                  color: Colors.black,
+              elevation: 12,
+              child: Container(
+                alignment: AlignmentDirectional.topCenter,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Image(
+                      width: 60,
+                      image: AssetImage('assets/images/ic_map_icon.png'),
+                    ),
+                    Text('مشاهده نقشه یک نهال'),
+                  ],
                 ),
               ),
             ),
@@ -62,6 +74,7 @@ class _HomeTab extends State<HomeTab> {
 
     if (!isLoggedIn) {
       return Card(
+        elevation: 15,
         margin: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
@@ -112,6 +125,7 @@ class _HomeTab extends State<HomeTab> {
       );
     } else {
       return Card(
+        elevation: 15,
         margin: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
@@ -158,5 +172,22 @@ class _HomeTab extends State<HomeTab> {
         ),
       );
     }
+  }
+}
+
+class HalfCircle extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = new Paint()
+      ..color = Colors.blue
+      ..strokeWidth = size.width / 20
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(Offset(-100, -300), 200, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return null;
   }
 }
