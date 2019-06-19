@@ -44,8 +44,7 @@ mixin AuthModel on MainModel {
 
   Future requestAuth(String token) async {
     try {
-      String my_token = "eyJ0eXAiOiJKV1QiLAogImFsZyI6IkhTMjU2In0.ewogImVtYWlsIjoic2FsZWguNzczNEBnbWFpbC5jb20iLAogInVzZXJfcnlwZSI6ImFkbWluIgp9.A4fdZ9MmIloP2NyBVAfUPEpXMl3JBPC5q5NTwcopy2w";
-      Map<String,String> header = {'Authorization':my_token};
+      Map<String,String> header = {'Authorization':token};
       final http.Response response = await http.get(api_auth,headers: header);
       if (response.statusCode != 200 && response.statusCode != 201) {
         return false;
@@ -66,13 +65,22 @@ mixin AuthModel on MainModel {
 }
 
 mixin SharedModel on MainModel {
-  PublishSubject<bool> get loaderSubject {
-    return _loaderSubject;
+
+  PublishSubject<String> _tokenSubject = PublishSubject();
+  PublishSubject<String> get tokenSubject {
+    getToken();
+    return _tokenSubject;
   }
 
   void saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(shared_token, token);
+  }
+
+  Future getToken() async {
+    String temToken = "eyJ0eXAiOiJKV1QiLAogImFsZyI6IkhTMjU2In0.ewogImVtYWlsIjoic2FsZWguNzczNEBnbWFpbC5jb20iLAogInVzZXJfcnlwZSI6ImFkbWluIgp9.A4fdZ9MmIloP2NyBVAfUPEpXMl3JBPC5q5NTwcopy2w";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _tokenSubject.add(prefs.getString(shared_token) ?? "");
   }
 
 }

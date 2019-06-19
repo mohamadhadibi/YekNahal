@@ -1,30 +1,63 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/utils/routs.dart';
 import 'package:yek_nahal/utils/utils.dart';
-import 'package:http/http.dart' as http;
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SplashPage();
+  }
+}
+
+class _SplashPage extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    ScopedModelDescendant<MainScope>(
+      builder: (BuildContext context, Widget parent, MainScope model) {
+        model.tokenSubject.listen((String token) {
+          debugPrint('first time');
+        });
+      },
+    );
+
+    /*
+    * model.tokenSubject.listen(
+          (token) {
+            if (token == null || token == "") {
+              Navigator.pushReplacementNamed(
+                context,
+                rout_main,
+              );
+            } else {
+             // model.requestAuth(token);
+              requestAuth(context, token);
+            }
+          },
+        );*/
+  }
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
-      builder: (BuildContext context, Widget child, MainScope model){
+      builder: (BuildContext context, Widget child, MainScope model) {
         model.setStatusBar(Colors.teal);
-        //_setObserver(model, context);
-        //model.requestAuth("");
-        _getToken().then((token){
-          if(token == null || token == ""){
+        model.tokenSubject.listen((token) {
+          token = "fasfa";
+          if (token == null || token == "") {
             Navigator.pushReplacementNamed(
               context,
               rout_main,
             );
-          }else{
+          } else {
+            // model.requestAuth(token);
             requestAuth(context, token);
           }
         });
@@ -67,19 +100,16 @@ class SplashPage extends StatelessWidget {
 
   Future requestAuth(BuildContext context, String token) async {
     try {
-      Map<String,String> header = {'Authorization':token};
-      final http.Response response = await http.get(api_auth,headers: header);
+      Map<String, String> header = {'Authorization': token};
+      final http.Response response = await http.get(api_auth, headers: header);
       if (response.statusCode != 200 && response.statusCode != 201) {
         return false;
       } else {
         var result = json.decode(response.body);
 
-        if(result['status']==200){
+        if (result['status'] == 200) {
           var data = UserOb.fromJson(result['data']);
-
-        }else{
-
-        }
+        } else {}
         Navigator.pushReplacementNamed(
           context,
           rout_main,
@@ -91,11 +121,10 @@ class SplashPage extends StatelessWidget {
     }
   }
 
-  void _setObserver(MainScope model, BuildContext context) async{
-
-    model.authSubject.listen((AuthOb auth){
-      if(auth!=null){
-        if(auth.status==200){
+  void _setObserver(MainScope model, BuildContext context) async {
+    model.authSubject.listen((AuthOb auth) {
+      if (auth != null) {
+        if (auth.status == 200) {
           Navigator.pushReplacementNamed(
             context,
             rout_main,
@@ -109,11 +138,5 @@ class SplashPage extends StatelessWidget {
         model.requestAuth(token);
       }
     });*/
-  }
-
-  Future _getToken() async {
-    String my_token = "eyJ0eXAiOiJKV1QiLAogImFsZyI6IkhTMjU2In0.ewogImVtYWlsIjoic2FsZWguNzczNEBnbWFpbC5jb20iLAogInVzZXJfcnlwZSI6ImFkbWluIgp9.A4fdZ9MmIloP2NyBVAfUPEpXMl3JBPC5q5NTwcopy2w";
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(shared_token) ?? my_token;
   }
 }

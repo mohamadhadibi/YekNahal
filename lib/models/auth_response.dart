@@ -13,8 +13,7 @@ class AuthOb {
     return AuthOb(
         status: json['status'],
         message: json['message'],
-        data: json['data'].map((value) => UserOb.fromJson(value))
-    );
+        data: json['data'].map((value) => UserOb.fromJson(value)));
   }
 }
 
@@ -42,7 +41,6 @@ class UserOb {
         email: json['email'],
         avatarUrl: json['avatarUrl'],
         plantedNumber: json['plantedNumber'],
-        waitingPlantedNumber: json['waitingPlantedNumber']
-    );
+        waitingPlantedNumber: json['waitingPlantedNumber']);
   }
 }
