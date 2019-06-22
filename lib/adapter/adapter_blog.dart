@@ -3,10 +3,12 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainModels.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
+import 'package:yek_nahal/utils/utils.dart';
 
 class RowBlog extends StatelessWidget {
   BlogOb model;
   List<BlogOb> blogs;
+
   RowBlog(this.blogs);
 
   @override
@@ -20,7 +22,6 @@ class RowBlog extends StatelessWidget {
           itemBuilder: _onBindView,
           itemCount: itemCount,
         );
-
       },
     );
   }
@@ -36,18 +37,29 @@ class RowBlog extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: <Widget>[
             FadeInImage(
-              placeholder: NetworkImage(blog.image),
-              image: AssetImage(blog.image),
+              image: NetworkImage(blog.image),
+              placeholder: AssetImage(image_place_holder),
               height: 200,
               width: 200,
               fit: BoxFit.cover,
             ),
-            Image.asset('assets/images/ic_row_mask.png', width: 200,),
-            Text(blog.title),
+            Image.asset(
+              'assets/images/ic_row_mask.png',
+              width: 200,
+            ),
+            Container(
+              alignment: AlignmentDirectional.bottomStart,
+              margin: EdgeInsetsDirectional.only(bottom: 10, start: 10),
+              child: Text(
+                blog.title,
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
   }
-
 }

@@ -43,7 +43,8 @@ class _HomeTab extends State<HomeTab> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
-        return Column(
+        return SingleChildScrollView(child:
+        Column(
           children: <Widget>[
             Container(
               child: Stack(
@@ -61,7 +62,8 @@ class _HomeTab extends State<HomeTab> {
             ),
             loadBlogs(model, blogs.length != 0),
             Card(
-              elevation: 12,
+              margin: EdgeInsetsDirectional.only(top: 50, start: 20, end: 20),
+              elevation: 7,
               child: Container(
                 alignment: AlignmentDirectional.topCenter,
                 child: Row(
@@ -77,14 +79,19 @@ class _HomeTab extends State<HomeTab> {
               ),
             ),
           ],
-        );
+        ),);
       },
     );
   }
 
   Widget loadBlogs(MainScope model, bool isBlogLoaded) {
     if (isBlogLoaded) {
-      return Expanded(child: RowBlog(blogs));
+      return Container(
+        height: 200,
+        child: Row(children: <Widget>[
+          Expanded(child: RowBlog(blogs)),
+        ],)
+      );
     } else {
       return Center(child: CircularProgressIndicator());
     }
