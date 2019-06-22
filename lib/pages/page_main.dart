@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/pages/tab_home.dart';
+import 'package:yek_nahal/pages/tab_search.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _MainPage extends State<MainPage> {
 
   int _currentIndex = 2;
   final List<Widget> _children = [
-    Container(color: Colors.lightGreenAccent),
+    SearchTab(),
     Container(color: Colors.brown),
     HomeTab(),
     Container(color: Colors.blue),

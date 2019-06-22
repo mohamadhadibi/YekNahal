@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
-import 'package:http/http.dart' as http;
 import 'package:yek_nahal/utils/routs.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
@@ -19,7 +19,6 @@ class HomeTab extends StatefulWidget {
 class _HomeTab extends State<HomeTab> {
   String _token = "";
   List<BlogOb> blogs = [];
-  List<BlogOb> blogList = [];
 
   @override
   void initState() {
@@ -31,11 +30,10 @@ class _HomeTab extends State<HomeTab> {
     requestGetPosts(_token, 1).then((value) {
       if (value as bool != false) {
         setState(() {
-          debugPrint('finally success');
-          blogs.addAll(blogList);
+          blogs.addAll(blogs);
         });
-      }else{
-        debugPrint('empty response');
+      } else {
+        //TODO: make error handler widget
       }
     });
   }
@@ -44,43 +42,44 @@ class _HomeTab extends State<HomeTab> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
-        return SingleChildScrollView(child:
-        Column(
-          children: <Widget>[
-            Container(
-              child: Stack(
-                alignment: AlignmentDirectional.topCenter,
-                children: <Widget>[
-                  Image.asset('assets/images/ic_toolbar.png'),
-                  getHeaderCard(_token != ""),
-                ],
-              ),
-            ),
-            Container(
-              alignment: AlignmentDirectional.topStart,
-              margin: EdgeInsetsDirectional.only(start: 20),
-              child: Text('آخرین مطالب'),
-            ),
-            loadBlogs(model, blogs.length != 0),
-            Card(
-              margin: EdgeInsetsDirectional.only(top: 50, start: 20, end: 20),
-              elevation: 7,
-              child: Container(
-                alignment: AlignmentDirectional.topCenter,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+        return SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Stack(
+                  alignment: AlignmentDirectional.topCenter,
                   children: <Widget>[
-                    Image(
-                      width: 60,
-                      image: AssetImage('assets/images/ic_map_icon.png'),
-                    ),
-                    Text('مشاهده نقشه یک نهال'),
+                    Image.asset('assets/images/ic_toolbar.png'),
+                    getHeaderCard(_token != ""),
                   ],
                 ),
               ),
-            ),
-          ],
-        ),);
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                margin: EdgeInsetsDirectional.only(start: 20),
+                child: Text('آخرین مطالب'),
+              ),
+              loadBlogs(model, blogs.length != 0),
+              Card(
+                margin: EdgeInsetsDirectional.only(top: 50, start: 20, end: 20),
+                elevation: 7,
+                child: Container(
+                  alignment: AlignmentDirectional.topCenter,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Image(
+                        width: 60,
+                        image: AssetImage('assets/images/ic_map_icon.png'),
+                      ),
+                      Text('مشاهده نقشه یک نهال'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -88,11 +87,12 @@ class _HomeTab extends State<HomeTab> {
   Widget loadBlogs(MainScope model, bool isBlogLoaded) {
     if (isBlogLoaded) {
       return Container(
-        height: 200,
-        child: Row(children: <Widget>[
-          Expanded(child: RowBlog(blogs, _onBlogClicked)),
-        ],)
-      );
+          height: 200,
+          child: Row(
+            children: <Widget>[
+              Expanded(child: RowBlog(blogs, _onBlogClicked)),
+            ],
+          ));
     } else {
       return Center(child: CircularProgressIndicator());
     }
@@ -125,7 +125,12 @@ class _HomeTab extends State<HomeTab> {
                 ),
                 subtitle: Column(children: <Widget>[
                   Text(
-                      'با عضویت در یک نهال خیلی راحت سفارش‌های خود را پیگیری کنید'),
+                    'با عضویت در یک نهال خیلی راحت سفارش‌های خود را پیگیری کنید',
+                    style: TextStyle(
+                      height: 1.2,
+                      fontSize: 13,
+                    ),
+                  ),
                   Container(
                     alignment: AlignmentDirectional.bottomStart,
                     child: FlatButton(
@@ -205,14 +210,15 @@ class _HomeTab extends State<HomeTab> {
 
   Future requestGetPosts(String token, int page) async {
     try {
-      Map<String,String> header = {'Authorization':token};
-      final http.Response response = await http.get(api_blog+"?page=$page",headers: header);
+      Map<String, String> header = {'Authorization': token};
+      final http.Response response =
+          await http.get(api_blog + "?page=$page", headers: header);
       if (response.statusCode != 200 && response.statusCode != 201) {
         return false;
       } else {
         var result = json.decode(response.body);
         BlogSearchResponse temp = BlogSearchResponse.fromJson(result);
-        blogList = temp.data.toList();
+        blogs = temp.data.toList();
         return true;
       }
     } catch (error) {
@@ -220,12 +226,11 @@ class _HomeTab extends State<HomeTab> {
     }
   }
 
-  void _onBlogClicked(int index){
+  void _onBlogClicked(int index) {
     Navigator.pushNamed(
       context,
       rout_blog,
       arguments: blogs[index],
     );
   }
-
 }
