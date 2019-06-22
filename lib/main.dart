@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
+import 'package:yek_nahal/pages/page_blog.dart';
 import 'package:yek_nahal/pages/page_main.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
 import 'package:yek_nahal/utils/routs.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'models/blogs_response.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,6 +49,16 @@ class _MyApp extends State<MyApp>{
               return MaterialPageRoute(
                 builder: (BuildContext context) => MainPage(),
               );
+              break;
+
+            case rout_blog:
+              if (arguments is BlogOb) {
+                BlogOb blog = arguments;
+                return MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      BlogPage(blog),
+                );
+              }
               break;
 
             default:

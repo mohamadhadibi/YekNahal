@@ -6,6 +6,7 @@ import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:yek_nahal/utils/routs.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
 class HomeTab extends StatefulWidget {
@@ -89,7 +90,7 @@ class _HomeTab extends State<HomeTab> {
       return Container(
         height: 200,
         child: Row(children: <Widget>[
-          Expanded(child: RowBlog(blogs)),
+          Expanded(child: RowBlog(blogs, _onBlogClicked)),
         ],)
       );
     } else {
@@ -218,4 +219,13 @@ class _HomeTab extends State<HomeTab> {
       return false;
     }
   }
+
+  void _onBlogClicked(int index){
+    Navigator.pushNamed(
+      context,
+      rout_blog,
+      arguments: blogs[index],
+    );
+  }
+
 }
