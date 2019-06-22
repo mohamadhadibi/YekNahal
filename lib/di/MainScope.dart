@@ -5,5 +5,6 @@ class MainScope extends Model with
     MainModel,
     LoadingModel,
     AuthModel,
-    SharedModel
+    SharedModel,
+    BlogModel
 {}

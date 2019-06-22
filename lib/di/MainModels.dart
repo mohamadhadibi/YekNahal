@@ -7,6 +7,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/models/auth_response.dart';
+import 'package:yek_nahal/models/blogs_response.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
 mixin MainModel on Model {
@@ -52,7 +53,32 @@ mixin AuthModel on MainModel {
         var result = json.decode(response.body);
 
         setAuth(AuthOb.fromJson(result));
-        notifyListeners();
+
+        return true;
+      }
+    } catch (error) {
+      changeLoadingStatus(false);
+      return false;
+    }
+  }
+
+}
+
+mixin BlogModel on MainModel {
+
+  List<BlogOb> blogList = [];
+
+
+  Future requestGetPosts(String token, int page) async {
+    try {
+      Map<String,String> header = {'Authorization':token};
+      final http.Response response = await http.get(api_blog+"?page=$page",headers: header);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return false;
+      } else {
+        var result = json.decode(response.body);
+        BlogSearchResponse temp = BlogSearchResponse.fromJson(result);
+        blogList.addAll(temp.data);
 
         return true;
       }

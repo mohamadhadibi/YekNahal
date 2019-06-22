@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
+import 'package:yek_nahal/models/blogs_response.dart';
+import 'package:http/http.dart' as http;
+import 'package:yek_nahal/utils/utils.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -12,18 +17,26 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTab extends State<HomeTab> {
   String _token = "";
+  List<BlogOb> blogs = [];
+  List<BlogOb> blogList = [];
 
   @override
   void initState() {
     super.initState();
 
-    ScopedModelDescendant<MainScope>(
-      builder: (BuildContext context, Widget parent, MainScope model) {
-        model.tokenSubject.listen((String token) {
-          _token = token;
+    /*model.tokenSubject.listen((String token) {
+      _token = token;
+    });*/
+    requestGetPosts(_token, 1).then((value) {
+      if (value as bool != false) {
+        setState(() {
+          debugPrint('finally success');
+          blogs.addAll(blogList);
         });
-      },
-    );
+      }else{
+        debugPrint('empty response');
+      }
+    });
   }
 
   @override
@@ -46,7 +59,7 @@ class _HomeTab extends State<HomeTab> {
               margin: EdgeInsetsDirectional.only(start: 20),
               child: Text('آخرین مطالب'),
             ),
-            Expanded(child: RowBlog()),
+            loadBlogs(model, blogs.length != 0),
             Card(
               elevation: 12,
               child: Container(
@@ -67,6 +80,14 @@ class _HomeTab extends State<HomeTab> {
         );
       },
     );
+  }
+
+  Widget loadBlogs(MainScope model, bool isBlogLoaded) {
+    if (isBlogLoaded) {
+      return Expanded(child: RowBlog(blogs));
+    } else {
+      return Center(child: CircularProgressIndicator());
+    }
   }
 
   Widget getHeaderCard(bool isLoggedIn) {
@@ -173,21 +194,21 @@ class _HomeTab extends State<HomeTab> {
       );
     }
   }
-}
 
-class HalfCircle extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint = new Paint()
-      ..color = Colors.blue
-      ..strokeWidth = size.width / 20
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawCircle(Offset(-100, -300), 200, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return null;
+  Future requestGetPosts(String token, int page) async {
+    try {
+      Map<String,String> header = {'Authorization':token};
+      final http.Response response = await http.get(api_blog+"?page=$page",headers: header);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return false;
+      } else {
+        var result = json.decode(response.body);
+        BlogSearchResponse temp = BlogSearchResponse.fromJson(result);
+        blogList = temp.data.toList();
+        return true;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 }

@@ -6,11 +6,8 @@ import 'package:yek_nahal/models/blogs_response.dart';
 
 class RowBlog extends StatelessWidget {
   BlogOb model;
-  List<BlogOb> blogs = [
-    BlogOb(name: 'new blog', imageUrl: 'assets/images/ic_temp.png'),
-    BlogOb(name: 'new blog', imageUrl: 'assets/images/ic_temp.png'),
-    BlogOb(name: 'new blog', imageUrl: 'assets/images/ic_temp.png'),
-  ];
+  List<BlogOb> blogs;
+  RowBlog(this.blogs);
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +36,14 @@ class RowBlog extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: <Widget>[
             FadeInImage(
-              placeholder: AssetImage(blog.imageUrl),
-              image: AssetImage(blog.imageUrl),
+              placeholder: NetworkImage(blog.image),
+              image: AssetImage(blog.image),
               height: 200,
               width: 200,
               fit: BoxFit.cover,
             ),
             Image.asset('assets/images/ic_row_mask.png', width: 200,),
-            Text(blog.name),
+            Text(blog.title),
           ],
         ),
       ),
