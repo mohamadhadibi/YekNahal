@@ -11,9 +11,10 @@ class AuthOb {
 
   factory AuthOb.fromJson(Map<String, dynamic> json) {
     return AuthOb(
-        status: json['status'],
-        message: json['message'],
-        data: json['data'].map((value) => UserOb.fromJson(value)));
+      status: json['status'],
+      message: json['message'],
+      data: json['data'].map((value) => UserOb.fromJson(value)),
+    );
   }
 }
 
@@ -36,11 +37,12 @@ class UserOb {
 
   factory UserOb.fromJson(Map<String, dynamic> json) {
     return UserOb(
-        isValid: json['isValid'],
-        username: json['username'],
-        email: json['email'],
-        avatarUrl: json['avatarUrl'],
-        plantedNumber: json['plantedNumber'],
-        waitingPlantedNumber: json['waitingPlantedNumber']);
+      isValid: json['isValid'],
+      username: json['username'],
+      email: json['email'],
+      avatarUrl: json['avatarUrl'],
+      plantedNumber: json['plantedNumber'],
+      waitingPlantedNumber: json['waitingPlantedNumber'],
+    );
   }
 }

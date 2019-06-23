@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
+import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/pages/page_blog.dart';
 import 'package:yek_nahal/pages/page_main.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
@@ -46,8 +47,9 @@ class _MyApp extends State<MyApp>{
           final arguments = settings.arguments;
           switch(settings.name){
             case rout_main:
+              UserOb ob = (arguments is UserOb) ? arguments : null;
               return MaterialPageRoute(
-                builder: (BuildContext context) => MainPage(),
+                builder: (BuildContext context) => MainPage(ob),
               );
               break;
 
@@ -66,9 +68,9 @@ class _MyApp extends State<MyApp>{
           }
         },
         onUnknownRoute: (RouteSettings settings){
-          return MaterialPageRoute(
-            builder: (BuildContext context) => MainPage(),
-          );
+//          return MaterialPageRoute(
+//            builder: (BuildContext context) => MainPage(null),
+//          );
         },
       ),
     );

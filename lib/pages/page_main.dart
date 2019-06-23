@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
+import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/pages/tab_home.dart';
 import 'package:yek_nahal/pages/tab_search.dart';
 
 class MainPage extends StatefulWidget {
+
+  UserOb user;
+  MainPage(UserOb user){
+  this.user = user;
+  }
+
   @override
   State<StatefulWidget> createState() {
     return _MainPage();

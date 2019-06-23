@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/utils/routs.dart';
@@ -16,32 +17,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPage extends State<SplashPage> {
+
   @override
   void initState() {
     super.initState();
-
-    ScopedModelDescendant<MainScope>(
-      builder: (BuildContext context, Widget parent, MainScope model) {
-        model.tokenSubject.listen((String token) {
-          debugPrint('first time');
-        });
-      },
-    );
-
-    /*
-    * model.tokenSubject.listen(
-          (token) {
-            if (token == null || token == "") {
-              Navigator.pushReplacementNamed(
-                context,
-                rout_main,
-              );
-            } else {
-             // model.requestAuth(token);
-              requestAuth(context, token);
-            }
-          },
-        );*/
+    getToken().then((token){
+      requestAuth(context, token);
+    });
   }
 
   @override
@@ -49,18 +31,6 @@ class _SplashPage extends State<SplashPage> {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget child, MainScope model) {
         model.setStatusBar(Colors.teal);
-        model.tokenSubject.listen((token) {
-          token = "fasfa";
-          if (token == null || token == "") {
-            Navigator.pushReplacementNamed(
-              context,
-              rout_main,
-            );
-          } else {
-            // model.requestAuth(token);
-            requestAuth(context, token);
-          }
-        });
         return Scaffold(
           backgroundColor: Colors.white,
           body: Column(
@@ -86,7 +56,7 @@ class _SplashPage extends State<SplashPage> {
                 ),
               ),
               Text(
-                "هدیه_به_زمین#",
+                "#هدیه_به_زمین",
                 style: TextStyle(
                   color: Colors.grey,
                 ),
@@ -107,12 +77,14 @@ class _SplashPage extends State<SplashPage> {
       } else {
         var result = json.decode(response.body);
 
+        UserOb data;
         if (result['status'] == 200) {
-          var data = UserOb.fromJson(result['data']);
+          data = UserOb.fromJson(result['data']);
         } else {}
         Navigator.pushReplacementNamed(
           context,
           rout_main,
+          arguments: data,
         );
         return true;
       }
@@ -121,22 +93,9 @@ class _SplashPage extends State<SplashPage> {
     }
   }
 
-  void _setObserver(MainScope model, BuildContext context) async {
-    model.authSubject.listen((AuthOb auth) {
-      if (auth != null) {
-        if (auth.status == 200) {
-          Navigator.pushReplacementNamed(
-            context,
-            rout_main,
-          );
-        }
-      }
-    });
-
-    /*_tokenSubject.listen((String token){
-      if(token!=null){
-        model.requestAuth(token);
-      }
-    });*/
+  Future getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(shared_token) ?? "";
   }
+
 }

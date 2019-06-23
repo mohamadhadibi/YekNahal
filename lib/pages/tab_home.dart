@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
@@ -23,17 +24,17 @@ class _HomeTab extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-
-    /*model.tokenSubject.listen((String token) {
+    getToken().then((token){
       _token = token;
-    });*/
-    requestGetPosts(_token, 1).then((value) {
-      if (value as bool != false) {
+      requestGetPosts(_token, 1).then((value) {
+        if (value as bool != false) {
 
-      } else {
-        //TODO: make error handler widget
-      }
+        } else {
+          //TODO: make error handler widget
+        }
+      });
     });
+
   }
 
   @override
@@ -233,4 +234,10 @@ class _HomeTab extends State<HomeTab> {
       arguments: blogs[index],
     );
   }
+
+  Future getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(shared_token) ?? "";
+  }
+
 }
