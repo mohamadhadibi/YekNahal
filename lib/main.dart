@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
@@ -6,23 +7,20 @@ import 'package:yek_nahal/pages/page_blog.dart';
 import 'package:yek_nahal/pages/page_main.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
 import 'package:yek_nahal/utils/routs.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'models/blogs_response.dart';
+import 'pages/page_auth.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _MyApp();
   }
-
 }
 
-class _MyApp extends State<MyApp>{
-
+class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<MainScope>(
@@ -37,15 +35,15 @@ class _MyApp extends State<MyApp>{
         ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primarySwatch: Colors.teal,
-            fontFamily: 'IranSans',
-            buttonColor: Colors.tealAccent,
-            brightness: Brightness.light,
+          primarySwatch: Colors.teal,
+          fontFamily: 'IranSans',
+          buttonColor: Colors.tealAccent,
+          brightness: Brightness.light,
         ),
         home: SplashPage(),
-        onGenerateRoute: (RouteSettings settings){
+        onGenerateRoute: (RouteSettings settings) {
           final arguments = settings.arguments;
-          switch(settings.name){
+          switch (settings.name) {
             case rout_main:
               UserOb ob = (arguments is UserOb) ? arguments : null;
               return MaterialPageRoute(
@@ -57,23 +55,29 @@ class _MyApp extends State<MyApp>{
               if (arguments is BlogOb) {
                 BlogOb blog = arguments;
                 return MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      BlogPage(blog),
+                  builder: (BuildContext context) => BlogPage(blog),
                 );
               }
               break;
 
+            case rout_auth:
+              if (arguments is PageState) {
+                PageState state = arguments;
+                return MaterialPageRoute(
+                  builder: (BuildContext context) => AuthPage(state),
+                );
+              }
+              break;
             default:
               break;
           }
         },
-        onUnknownRoute: (RouteSettings settings){
-//          return MaterialPageRoute(
-//            builder: (BuildContext context) => MainPage(null),
-//          );
+        onUnknownRoute: (RouteSettings settings) {
+/*          return MaterialPageRoute(
+            builder: (BuildContext context) => MainPage(null),
+          );*/
         },
       ),
     );
   }
-
 }

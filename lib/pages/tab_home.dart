@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/adapter/adapter_blog.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
+import 'package:yek_nahal/pages/page_auth.dart';
 import 'package:yek_nahal/utils/routs.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
@@ -24,17 +25,15 @@ class _HomeTab extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    getToken().then((token){
+    getToken().then((token) {
       _token = token;
       requestGetPosts(_token, 1).then((value) {
         if (value as bool != false) {
-
         } else {
           //TODO: make error handler widget
         }
       });
     });
-
   }
 
   @override
@@ -142,9 +141,11 @@ class _HomeTab extends State<HomeTab> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       onPressed: () {
-                        setState(() {
-                          _token = "asfasf";
-                        });
+                        Navigator.pushNamed(
+                          context,
+                          rout_auth,
+                          arguments: PageState.login,
+                        );
                       },
                     ),
                   )
@@ -239,5 +240,4 @@ class _HomeTab extends State<HomeTab> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(shared_token) ?? "";
   }
-
 }
