@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:yek_nahal/adapter/adapter_blog_search.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
+import 'package:yek_nahal/utils/routs.dart';
 
 class SearchTab extends StatefulWidget {
   @override
@@ -12,7 +14,7 @@ class SearchTab extends StatefulWidget {
 
 class _SearchTab extends State<SearchTab> {
   List<BlogOb> blogs;
-  String strSearch = "";
+  String _strSearch = "";
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,15 @@ class _SearchTab extends State<SearchTab> {
                       filled: true,
                     ),
                     onSaved: (String value) {
-                      strSearch = value;
+                      setState(() {
+                        _strSearch = value;
+                      });
                     },
                   ),
                 ),
               ),
-              SingleChildScrollView(
-                child: Container(),
+              Expanded(
+                child: RowBlogSearch(_onBlogClicked, _strSearch),
               ),
             ],
           ),
@@ -62,4 +66,11 @@ class _SearchTab extends State<SearchTab> {
     );
   }
 
+  void _onBlogClicked(BlogOb ob) {
+    Navigator.pushNamed(
+      context,
+      rout_blog,
+      arguments: ob,
+    );
+  }
 }

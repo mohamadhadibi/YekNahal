@@ -29,9 +29,7 @@ class _HomeTab extends State<HomeTab> {
     });*/
     requestGetPosts(_token, 1).then((value) {
       if (value as bool != false) {
-        setState(() {
-          blogs.addAll(blogs);
-        });
+
       } else {
         //TODO: make error handler widget
       }
@@ -218,7 +216,9 @@ class _HomeTab extends State<HomeTab> {
       } else {
         var result = json.decode(response.body);
         BlogSearchResponse temp = BlogSearchResponse.fromJson(result);
-        blogs = temp.data.toList();
+        setState(() {
+          blogs = temp.data.toList();
+        });
         return true;
       }
     } catch (error) {

@@ -39,7 +39,7 @@ class _MainPage extends State<MainPage> {
                 title: Text(''),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(Icons.image),
+                icon: Icon(Icons.local_florist),
                 title: Text(''),
               ),
               BottomNavigationBarItem(
@@ -47,7 +47,7 @@ class _MainPage extends State<MainPage> {
                 title: Text(''),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.local_florist),
+                icon: Icon(Icons.image),
                 title: Text(''),
               ),
               BottomNavigationBarItem(
