@@ -48,7 +48,7 @@ class _HomeTab extends State<HomeTab> {
                   alignment: AlignmentDirectional.topCenter,
                   children: <Widget>[
                     Image.asset('assets/images/ic_toolbar.png'),
-                    getHeaderCard(_token != ""),
+                    getHeaderCard(_token != "", model),
                   ],
                 ),
               ),
@@ -96,7 +96,7 @@ class _HomeTab extends State<HomeTab> {
     }
   }
 
-  Widget getHeaderCard(bool isLoggedIn) {
+  Widget getHeaderCard(bool isLoggedIn, MainScope model) {
     double cardHeight = 150;
 
     if (!isLoggedIn) {
@@ -133,7 +133,7 @@ class _HomeTab extends State<HomeTab> {
                     alignment: AlignmentDirectional.bottomStart,
                     child: FlatButton(
                       child: Text(
-                        'عضویت',
+                        'ورود',
                       ),
                       textColor: Colors.white,
                       color: Colors.teal,
@@ -144,7 +144,7 @@ class _HomeTab extends State<HomeTab> {
                         Navigator.pushNamed(
                           context,
                           rout_auth,
-                          arguments: PageState.login,
+                          arguments: PageState.reg_email,
                         );
                       },
                     ),
@@ -182,7 +182,7 @@ class _HomeTab extends State<HomeTab> {
                   margin: EdgeInsetsDirectional.only(bottom: 10),
                 ),
                 subtitle: Container(
-                  child: Text("کاشته شده: ۵ نهال"),
+                  child: Text("کاشته شده: ${model.getUser().plantedNumber} نهال"),
                 ),
               ),
             ),

@@ -81,5 +81,9 @@ flutter:
         - asset: assets/fonts/IranSans/IRANSansMobile(FaNum)_Bold.ttf
           weight: 700
 
+    - family: Tahoma
+      fonts:
+        - asset: assets/fonts/English/tahoma.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages

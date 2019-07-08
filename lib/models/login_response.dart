@@ -20,17 +20,14 @@ class LoginResponse {
 
 class LoginOb {
   String token;
-  String status;
   String username;
   String email;
   String avatarUrl;
   int plantedNumber;
   int waitingPlantedNumber;
 
-
   LoginOb({
     this.token = '',
-    this.status = '',
     this.username = '',
     this.email = '',
     this.avatarUrl = 'assets/images/ic_logo.png',
@@ -39,14 +36,23 @@ class LoginOb {
   });
 
   factory LoginOb.fromJson(Map<String, dynamic> json) {
-    return LoginOb(
-      token: json['token'],
-      status: json['status'],
-      username: json['username'],
-      email: json['email'],
-      avatarUrl: json['avatarUrl'],
-      plantedNumber: json['plantedNumber'],
-      waitingPlantedNumber: json['waitingPlantedNumber'],
-    );
+    return LoginOb();
+    /*return LoginOb(
+      token: '',
+      username: '',
+      email: '',
+      avatarUrl: '',
+      plantedNumber: 0,
+      waitingPlantedNumber: 0,
+    );*/
+    /*return LoginOb(
+      token: (json.containsKey('token') ? json['token'] : ''),
+      username: (json.containsKey('username')) ? json['username'] : '',
+      email: (json.containsKey('email')) ? json['email'] : '',
+      avatarUrl: (json.containsKey('avatarUrl')) ? json['avatarUrl'] : '',
+      plantedNumber: (json.containsKey('plantedNumber')) ? json['plantedNumber'] : 0,
+      waitingPlantedNumber: (json.containsKey('waitingPlantedNumber')) ? json['waitingPlantedNumber'] : 0,
+      isValid: (json.containsKey('isValid')) ? json['isValid'] : false,
+    );*/
   }
 }

@@ -70,6 +70,7 @@ class _SplashPage extends State<SplashPage> {
 
   Future requestAuth(BuildContext context, String token) async {
     try {
+      token = "eyJ0eXAiOiJKV1QiLAogICAgICAgICAgICJhbGciOiJIUzI1NiJ9.ewogICAgICAgICAgICJlbWFpbCI6InNhbGVoLjc3MzRAZ21haWwuY29tIiwKICAgICAgICAgICAiZGF0ZSI6IjIwMTksMDcsMDgiCiAgICAgICAgICB9.EsBT1PGwQ4MTlK4orQG6Zj-BxzczT2fB2YlnPXucAsc";
       Map<String, String> header = {'Authorization': token};
       final http.Response response = await http.get(api_auth, headers: header);
       if (response.statusCode != 200 && response.statusCode != 201) {

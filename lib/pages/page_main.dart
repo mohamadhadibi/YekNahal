@@ -34,6 +34,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
+        model.setUser(widget.user);
         return Scaffold(
           body: _children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
@@ -74,4 +75,6 @@ class _MainPage extends State<MainPage> {
       _currentIndex = index;
     });
   }
+
+  UserOb _getUser() => widget.user;
 }

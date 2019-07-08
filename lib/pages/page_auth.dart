@@ -23,6 +23,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPage extends State<AuthPage> {
   MainScope model;
+  String _email = "";
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +61,10 @@ class _AuthPage extends State<AuthPage> {
         view = LoginPage(_changePageState, _login);
         break;
       case PageState.reg_email:
-        view = RegEmailPage(_changePageState);
+        view = RegEmailPage(_changePageState, _login, _setEmail);
         break;
       case PageState.reg_password:
-        view = RegPasswordPage(_changePageState, _login, '');
+        view = RegPasswordPage(_changePageState, _login, _email);
         break;
       case PageState.change_password:
         view = ChangePasswordPage(_changePageState);
@@ -87,12 +88,22 @@ class _AuthPage extends State<AuthPage> {
   void _login(data) {
     this.model.requestLogin(data).then((response) {
       if (response != null && response is LoginResponse) {
-        debugPrint('result: ${response.toString()}');
         switch (response.status) {
           case 200:
-            this.model.saveToken(response.data.token).then((done) {
+            /*user is registered before and verified*/
+            _changePageState(PageState.reg_password);
+            break;
+
+          case 201:
+            /*user ordered before but not verified*/
+            _dialogHints('برای فعالسازی اکانت خود به ایمیلتان مراجعه کرده و بروی لینک فعالسازی کلیک کنید.');
+            break;
+
+          case 202:
+            /*user registered and verified before*/
+            /*this.model.saveToken(response.data.token).then((done) {
               UserOb user = UserOb(
-                isValid: true,
+                isValid: response.data.isValid,
                 avatarUrl: response.data.avatarUrl,
                 email: response.data.email,
                 username: response.data.username,
@@ -104,7 +115,16 @@ class _AuthPage extends State<AuthPage> {
                 rout_main,
                 arguments: user,
               );
-            });
+            });*/
+            break;
+
+          case 400:
+            _dialogHints('مشکلی رخ داده است, لطفا موارد خواسته شده را با دقت پر کرده و مجددا درخواست نمایید.');
+            break;
+
+          case 404:
+            /*user not registered*/
+            _dialogHints('لینک ثبتنام به ایمیل شما ارسال شد, لطفا به ایمیل خود مراجعه کرده و بروی لینک فعالسازی کلیک کنید.');
             break;
 
           default:
@@ -115,6 +135,35 @@ class _AuthPage extends State<AuthPage> {
       }
     });
   }
+
+  void _setEmail(String email) {
+    debugPrint('email: $email');
+    _email = email;
+  }
+
+  void _dialogHints(String message){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('توجه!!'),
+          content: Text(message),
+          actions: <Widget>[
+            RaisedButton(
+              child: Text('باشه'),
+              onPressed: () {
+                Navigator.pop(context);
+                //Navigator.pop(context, true);
+              },
+              textColor: Colors.white,
+              //color: Theme.of(context).primaryColor,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
 
 enum PageState {

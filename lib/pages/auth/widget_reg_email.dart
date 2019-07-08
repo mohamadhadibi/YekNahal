@@ -6,7 +6,9 @@ import '../page_auth.dart';
 class RegEmailPage extends StatefulWidget {
 
   Function _changePageState;
-  RegEmailPage(this._changePageState);
+  Function _login;
+  Function _setEmail;
+  RegEmailPage(this._changePageState, this._login, this._setEmail);
 
   @override
   State<StatefulWidget> createState() {
@@ -16,7 +18,9 @@ class RegEmailPage extends StatefulWidget {
 
 class _RegEmailPage extends State<RegEmailPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  String _email = '';
+  Map _formData = {
+    'email': '',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +59,7 @@ class _RegEmailPage extends State<RegEmailPage> {
                                 return 'ایمیل وارد شده معتبر نیست!';
                               }
                             },
+                            style: TextStyle(fontFamily: ''),
                             decoration: InputDecoration(
                               labelText: 'ایمیل',
                               filled: true,
@@ -62,7 +67,10 @@ class _RegEmailPage extends State<RegEmailPage> {
                             ),
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (String value) {
-                              _email = value;
+                              _formData['email'] = value;
+                            },
+                            onFieldSubmitted: (String value){
+                              _formData['email'] = value;
                             },
                           ),
                           Container(
@@ -80,7 +88,8 @@ class _RegEmailPage extends State<RegEmailPage> {
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () {
-                                  widget._changePageState(PageState.reg_password);
+                                  widget._setEmail(_formData['email']);
+                                  widget._login(_formData);
                                 },
                               ),
                             ),

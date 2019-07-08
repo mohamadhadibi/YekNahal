@@ -1,16 +1,16 @@
-class AuthOb {
+class AuthResponse {
   int status;
   UserOb data;
   String message;
 
-  AuthOb({
+  AuthResponse({
     this.status,
     this.message,
     this.data,
   });
 
-  factory AuthOb.fromJson(Map<String, dynamic> json) {
-    return AuthOb(
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
       status: json['status'],
       message: json['message'],
       data: json['data'].map((value) => UserOb.fromJson(value)),
