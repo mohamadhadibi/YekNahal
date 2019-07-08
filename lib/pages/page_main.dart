@@ -6,10 +6,10 @@ import 'package:yek_nahal/pages/tab_home.dart';
 import 'package:yek_nahal/pages/tab_search.dart';
 
 class MainPage extends StatefulWidget {
-
   UserOb user;
-  MainPage(UserOb user){
-  this.user = user;
+
+  MainPage(UserOb user) {
+    this.user = user;
   }
 
   @override
@@ -19,21 +19,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
-
   int _currentIndex = 2;
   final List<Widget> _children = [
     SearchTab(),
     Container(color: Colors.brown),
     HomeTab(),
     Container(color: Colors.blue),
-    Container(color: Colors.red,),
+    Container(
+      color: Colors.red,
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
-      builder: (BuildContext context, Widget parent, MainScope model){
-        return  Scaffold(
+      builder: (BuildContext context, Widget parent, MainScope model) {
+        return Scaffold(
           body: _children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
@@ -68,7 +69,7 @@ class _MainPage extends State<MainPage> {
     );
   }
 
-  void onTabTapped(int index){
+  void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });

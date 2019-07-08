@@ -4,9 +4,10 @@ import 'package:yek_nahal/widgets/YeNahal.dart';
 import '../page_auth.dart';
 
 class RegPasswordPage extends StatefulWidget {
-
   Function _changePageState;
-  RegPasswordPage(this._changePageState);
+  Function _login;
+  String email;
+  RegPasswordPage(this._changePageState, this._login, this.email);
 
   @override
   State<StatefulWidget> createState() {
@@ -80,8 +81,8 @@ class _RegPasswordPage extends State<RegPasswordPage> {
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     onPressed: () {
-                                      widget._changePageState(PageState.change_password);
-                                      },
+                                      widget._login(PageState.change_password);
+                                    },
                                   ),
                                 ),
                               )

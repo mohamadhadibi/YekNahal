@@ -6,7 +6,8 @@ import '../page_auth.dart';
 class LoginPage extends StatefulWidget {
 
   Function _changePageState;
-  LoginPage(this._changePageState);
+  Function _login;
+  LoginPage(this._changePageState, this._login);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   Map _formData = {
-    'username': '',
+    'email': '',
     'password': '',
   };
 
@@ -52,6 +53,7 @@ class _LoginPage extends State<LoginPage> {
                               alignment: AlignmentDirectional.center,
                             ),
                             TextFormField(
+                              style: TextStyle(fontFamily: ''),
                               decoration: InputDecoration(
                                 labelText: 'نام کاربری',
                                 filled: true,
@@ -59,19 +61,20 @@ class _LoginPage extends State<LoginPage> {
                               ),
                               keyboardType: TextInputType.text,
                               onSaved: (String value) {
-                                _formData['username'] = value;
+                                _formData['email'] = value;
                               },
                             ),
                             SizedBox(
                               height: 2,
                             ),
                             TextFormField(
+                              style: TextStyle(fontFamily: ''),
+                              textAlign: TextAlign.left,
                               decoration: InputDecoration(
                                 labelText: 'کلمه عبور',
                                 filled: true,
                                 fillColor: Colors.white,
                               ),
-                              obscureText: true,
                               onSaved: (String value) {
                                 _formData['password'] = value;
                               },
@@ -90,7 +93,9 @@ class _LoginPage extends State<LoginPage> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    widget._login(_formData);
+                                  },
                                 ),
                               ),
                             )
