@@ -100,10 +100,9 @@ class _AuthPage extends State<AuthPage> {
             break;
 
           case 202:
-            /*user registered and verified before*/
-            /*this.model.saveToken(response.data.token).then((done) {
+            /*user password verified and login complete*/
+            this.model.saveToken(response.data.token).then((done) {
               UserOb user = UserOb(
-                isValid: response.data.isValid,
                 avatarUrl: response.data.avatarUrl,
                 email: response.data.email,
                 username: response.data.username,
@@ -115,7 +114,7 @@ class _AuthPage extends State<AuthPage> {
                 rout_main,
                 arguments: user,
               );
-            });*/
+            });
             break;
 
           case 400:

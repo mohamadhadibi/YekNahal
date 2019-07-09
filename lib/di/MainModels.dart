@@ -41,17 +41,15 @@ mixin AuthModel on MainModel {
   UserOb getUser() => user;
 
   Future<LoginResponse> requestLogin(Map params) async {
-    LoginResponse
-        loginResult; /* = LoginResponse(status: 900, message: 'خطا', data: null);*/
+    LoginResponse loginResult = new LoginResponse();
     try {
       final http.Response response = await http.post(api_login, body: params);
       if (response.statusCode != 200 && response.statusCode != 201) {
-        var result = json.decode(response.body);
-        loginResult = LoginResponse.fromJson(result['data']);
         return loginResult;
       } else {
         var result = json.decode(response.body);
-        loginResult = LoginResponse.fromJson(result);
+        LoginOb ob = LoginOb.fromJson(result['data']);
+        loginResult = new LoginResponse(status: result['status'], message: result['message'], data: ob);
         return loginResult;
       }
     } catch (error) {

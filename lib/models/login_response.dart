@@ -36,7 +36,6 @@ class LoginOb {
   });
 
   factory LoginOb.fromJson(Map<String, dynamic> json) {
-    return LoginOb();
     /*return LoginOb(
       token: '',
       username: '',
@@ -45,14 +44,13 @@ class LoginOb {
       plantedNumber: 0,
       waitingPlantedNumber: 0,
     );*/
-    /*return LoginOb(
+    return LoginOb(
       token: (json.containsKey('token') ? json['token'] : ''),
       username: (json.containsKey('username')) ? json['username'] : '',
       email: (json.containsKey('email')) ? json['email'] : '',
       avatarUrl: (json.containsKey('avatarUrl')) ? json['avatarUrl'] : '',
       plantedNumber: (json.containsKey('plantedNumber')) ? json['plantedNumber'] : 0,
       waitingPlantedNumber: (json.containsKey('waitingPlantedNumber')) ? json['waitingPlantedNumber'] : 0,
-      isValid: (json.containsKey('isValid')) ? json['isValid'] : false,
-    );*/
+    );
   }
 }

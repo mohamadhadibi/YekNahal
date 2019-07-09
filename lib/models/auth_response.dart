@@ -19,7 +19,6 @@ class AuthResponse {
 }
 
 class UserOb {
-  bool isValid;
   String username;
   String email;
   String avatarUrl;
@@ -27,7 +26,6 @@ class UserOb {
   int waitingPlantedNumber;
 
   UserOb({
-    this.isValid = false,
     this.username = 'guest',
     this.email = '',
     this.avatarUrl = 'assets/images/ic_logo.png',
@@ -37,7 +35,6 @@ class UserOb {
 
   factory UserOb.fromJson(Map<String, dynamic> json) {
     return UserOb(
-      isValid: json['isValid'],
       username: json['username'],
       email: json['email'],
       avatarUrl: json['avatarUrl'],
