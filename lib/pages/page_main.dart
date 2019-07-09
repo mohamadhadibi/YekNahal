@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
+import 'package:yek_nahal/pages/page_profile.dart';
 import 'package:yek_nahal/pages/tab_home.dart';
 import 'package:yek_nahal/pages/tab_search.dart';
 
@@ -25,9 +26,7 @@ class _MainPage extends State<MainPage> {
     Container(color: Colors.brown),
     HomeTab(),
     Container(color: Colors.blue),
-    Container(
-      color: Colors.red,
-    ),
+    ProfilePage(),
   ];
 
   @override
