@@ -76,5 +76,4 @@ class _MainPage extends State<MainPage> {
     });
   }
 
-  UserOb _getUser() => widget.user;
 }

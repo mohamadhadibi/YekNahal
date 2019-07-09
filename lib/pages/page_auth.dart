@@ -58,7 +58,7 @@ class _AuthPage extends State<AuthPage> {
         view = LoginPage(_changePageState, _login);
         break;
       case PageState.reg_email:
-        view = RegEmailPage(_changePageState, _login, _setEmail);
+        view = RegEmailPage(_login, _setEmail);
         break;
       case PageState.reg_password:
         view = RegPasswordPage(_changePageState, _login, _email);

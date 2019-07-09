@@ -12,6 +12,13 @@ import 'package:yek_nahal/pages/page_auth.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
 mixin MainModel on Model {
+
+  String token = "";
+  void setToken(String token){
+    this.token = token;
+  }
+  String getToken() => token;
+
   PublishSubject<bool> _loaderSubject = PublishSubject();
 
   void changeLoadingStatus(bool isLoading) {
@@ -59,7 +66,7 @@ mixin AuthModel on MainModel {
         return loginResult;
       } else {
         var result = json.decode(response.body);
-        LoginOb ob = LoginOb.fromJson(result['data']);
+        LoginOb ob = (result['data'] != "") ? LoginOb.fromJson(result['data']) : null;
         loginResult = new LoginResponse(status: result['status'], message: result['message'], data: ob);
         return loginResult;
       }

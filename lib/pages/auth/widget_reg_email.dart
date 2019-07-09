@@ -5,10 +5,9 @@ import '../page_auth.dart';
 
 class RegEmailPage extends StatefulWidget {
 
-  Function _changePageState;
   Function _login;
   Function _setEmail;
-  RegEmailPage(this._changePageState, this._login, this._setEmail);
+  RegEmailPage(this._login, this._setEmail);
 
   @override
   State<StatefulWidget> createState() {

@@ -7,7 +7,8 @@ class RegPasswordPage extends StatefulWidget {
   Function _changePageState;
   Function _login;
   String _email;
-  RegPasswordPage(this._changePageState, this._login,this._email);
+
+  RegPasswordPage(this._changePageState, this._login, this._email);
 
   @override
   State<StatefulWidget> createState() {
@@ -69,6 +70,9 @@ class _RegPasswordPage extends State<RegPasswordPage> {
                                 onSaved: (String value) {
                                   _formData['password'] = value;
                                 },
+                                onFieldSubmitted: (String value){
+                                  _formData['password'] = value;
+                              },
                               ),
                               Container(
                                 margin: EdgeInsets.all(20),
