@@ -64,7 +64,7 @@ class _MyApp extends State<MyApp> {
               if (arguments is PageState) {
                 PageState state = arguments;
                 return MaterialPageRoute(
-                  builder: (BuildContext context) => AuthPage(state),
+                  builder: (BuildContext context) => AuthPage(),
                 );
               }
               break;
@@ -73,7 +73,7 @@ class _MyApp extends State<MyApp> {
           }
         },
         onUnknownRoute: (RouteSettings settings) {
-/*          return MaterialPageRoute(
+        /*return MaterialPageRoute(
             builder: (BuildContext context) => MainPage(null),
           );*/
         },

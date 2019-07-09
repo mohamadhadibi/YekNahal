@@ -8,6 +8,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/models/login_response.dart';
+import 'package:yek_nahal/pages/page_auth.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
 mixin MainModel on Model {
@@ -33,12 +34,22 @@ mixin LoadingModel on MainModel {
 
 mixin AuthModel on MainModel {
   UserOb user;
-
   void setUser(UserOb user) {
     this.user = user;
   }
-
   UserOb getUser() => user;
+
+  PageState pageState;
+  void setPageState(PageState pageState){
+    this.pageState = pageState;
+  }
+  PageState getPageState(){
+    if(this.pageState == null){
+      return PageState.reg_email;
+    }else{
+      return this.pageState;
+    }
+  }
 
   Future<LoginResponse> requestLogin(Map params) async {
     LoginResponse loginResult = new LoginResponse();

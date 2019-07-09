@@ -11,9 +11,6 @@ import 'package:yek_nahal/pages/auth/widget_reg_password.dart';
 import 'package:yek_nahal/utils/routs.dart';
 
 class AuthPage extends StatefulWidget {
-  PageState pageState;
-
-  AuthPage(this.pageState);
 
   @override
   State<StatefulWidget> createState() {
@@ -22,14 +19,14 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPage extends State<AuthPage> {
-  MainScope model;
   String _email = "";
+  MainScope mainModel;
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
-        this.model = model;
+        this.mainModel = model;
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: true,
@@ -47,16 +44,16 @@ class _AuthPage extends State<AuthPage> {
             backgroundColor: Colors.white,
           ),
           body: Container(
-            child: getView(),
+            child: getView(model),
           ),
         );
       },
     );
   }
 
-  Widget getView() {
+  Widget getView(MainScope model) {
     Widget view = Container();
-    switch (widget.pageState) {
+    switch (model.getPageState()) {
       case PageState.login:
         view = LoginPage(_changePageState, _login);
         break;
@@ -81,12 +78,12 @@ class _AuthPage extends State<AuthPage> {
 
   void _changePageState(PageState state) {
     setState(() {
-      widget.pageState = state;
+      mainModel.setPageState(state);
     });
   }
 
   void _login(data) {
-    this.model.requestLogin(data).then((response) {
+    this.mainModel.requestLogin(data).then((response) {
       if (response != null && response is LoginResponse) {
         switch (response.status) {
           case 200:
@@ -101,7 +98,7 @@ class _AuthPage extends State<AuthPage> {
 
           case 202:
             /*user password verified and login complete*/
-            this.model.saveToken(response.data.token).then((done) {
+            this.mainModel.saveToken(response.data.token).then((done) {
               UserOb user = UserOb(
                 avatarUrl: response.data.avatarUrl,
                 email: response.data.email,
