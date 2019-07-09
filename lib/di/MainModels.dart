@@ -7,6 +7,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/models/auth_response.dart';
+import 'package:yek_nahal/models/forget_password_response.dart';
 import 'package:yek_nahal/models/login_response.dart';
 import 'package:yek_nahal/pages/page_auth.dart';
 import 'package:yek_nahal/utils/utils.dart';
@@ -74,6 +75,22 @@ mixin AuthModel on MainModel {
       return loginResult;
     }
   }
+
+  Future<ForgetPasswordResponse> requestForgetPassword(Map params) async {
+    ForgetPasswordResponse forgetResult = new ForgetPasswordResponse();
+    try {
+      final http.Response response = await http.post(api_login, body: params);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return forgetResult;
+      } else {
+        var result = json.decode(response.body);
+        return forgetResult = ForgetPasswordResponse.fromJson(result);
+      }
+    } catch (error) {
+      return forgetResult;
+    }
+  }
+
 }
 
 mixin SharedModel on MainModel {

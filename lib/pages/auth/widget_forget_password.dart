@@ -6,7 +6,9 @@ import '../page_auth.dart';
 class ForgetPasswordPage extends StatefulWidget {
 
   Function _changePageState;
-  ForgetPasswordPage(this._changePageState);
+  Function _forgetPassword;
+  String _email;
+  ForgetPasswordPage(this._forgetPassword, this._changePageState, this._email);
 
   @override
   State<StatefulWidget> createState() {
@@ -16,7 +18,6 @@ class ForgetPasswordPage extends StatefulWidget {
 
 class _ForgetPasswordPage extends State<ForgetPasswordPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  String _email = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                 alignment: AlignmentDirectional.center,
                               ),
                               TextFormField(
+                                initialValue: widget._email,
                                 validator: (String value) {
                                   if (value.isEmpty ||
                                       !RegExp(r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$')
@@ -64,7 +66,10 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                 ),
                                 keyboardType: TextInputType.emailAddress,
                                 onSaved: (String value) {
-                                  _email = value;
+                                  widget._email = value;
+                                },
+                                onFieldSubmitted: (String value){
+                                  widget._email = value;
                                 },
                               ),
                               Container(
@@ -81,7 +86,12 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Map _formData = {
+                                        'email': widget._email,
+                                      };
+                                      widget._forgetPassword(_formData);
+                                    },
                                   ),
                                 ),
                               )
@@ -101,7 +111,7 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                   ),
                 ),
                 onPressed: () {
-                  widget._changePageState(PageState.login);
+                  widget._changePageState(PageState.reg_email);
                 },
               )
             ],

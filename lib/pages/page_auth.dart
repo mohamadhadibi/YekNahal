@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
+import 'package:yek_nahal/models/forget_password_response.dart';
 import 'package:yek_nahal/models/login_response.dart';
 import 'package:yek_nahal/pages/auth/widget_cheange_password.dart';
 import 'package:yek_nahal/pages/auth/widget_forget_password.dart';
@@ -67,7 +68,7 @@ class _AuthPage extends State<AuthPage> {
         view = ChangePasswordPage(_changePageState);
         break;
       case PageState.forget_password:
-        view = ForgetPasswordPage(_changePageState);
+        view = ForgetPasswordPage(_forgetPassword, _changePageState, _email);
         break;
       default:
         break;
@@ -158,6 +159,28 @@ class _AuthPage extends State<AuthPage> {
         );
       },
     );
+  }
+
+  void _forgetPassword(data){
+    this.mainModel.requestForgetPassword(data).then((response) {
+      if (response != null && response is ForgetPasswordResponse) {
+        switch (response.status) {
+          case 200:
+          /*email is valid and resend to email address*/
+            _dialogHints('لینک بازیابی کلمه عبور با موفقیت برای ایمیل شما ارسال شد.');
+            break;
+
+          case 400:
+          /*email not valid in database*/
+            _dialogHints('ایمیل وارد شده در سیستم موجود نیست.');
+          break;
+
+          default:
+            _dialogHints('مشکلی پیش آمده است لطفا مجددا تلاش کنید.');
+            break;
+        }
+      }
+    });
   }
 
 }
