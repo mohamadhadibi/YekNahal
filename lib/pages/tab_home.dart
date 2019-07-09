@@ -23,23 +23,15 @@ class _HomeTab extends State<HomeTab> {
   List<BlogOb> blogs = [];
 
   @override
-  void initState() {
-    super.initState();
-    getToken().then((token) {
-      _token = token;
-      requestGetPosts(_token, 1).then((value) {
-        if (value as bool != false) {
-        } else {
-          //TODO: make error handler widget
-        }
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
+        _token = model.getToken();
+        requestGetPosts(_token, 1).then((value){
+          if (value as bool != false) {
+            //TODO
+          }
+        });
         return SingleChildScrollView(
           child: Column(
             children: <Widget>[

@@ -100,6 +100,7 @@ class _AuthPage extends State<AuthPage> {
           case 202:
             /*user password verified and login complete*/
             this.mainModel.saveToken(response.data.token).then((done) {
+              mainModel.setToken(response.data.token);
               UserOb user = UserOb(
                 avatarUrl: response.data.avatarUrl,
                 email: response.data.email,

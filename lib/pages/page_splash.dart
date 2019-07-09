@@ -18,6 +18,8 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPage extends State<SplashPage> {
 
+  MainScope mainModel;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +32,7 @@ class _SplashPage extends State<SplashPage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget child, MainScope model) {
+        mainModel = model;
         model.setStatusBar(Colors.teal);
         return Scaffold(
           backgroundColor: Colors.white,
@@ -81,6 +84,7 @@ class _SplashPage extends State<SplashPage> {
         if (result['status'] == 200) {
           data = UserOb.fromJson(result['data']);
         } else {}
+        mainModel.setToken(token);
         Navigator.pushReplacementNamed(
           context,
           rout_main,
