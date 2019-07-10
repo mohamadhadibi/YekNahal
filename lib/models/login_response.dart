@@ -36,14 +36,6 @@ class LoginOb {
   });
 
   factory LoginOb.fromJson(Map<String, dynamic> json) {
-    /*return LoginOb(
-      token: '',
-      username: '',
-      email: '',
-      avatarUrl: '',
-      plantedNumber: 0,
-      waitingPlantedNumber: 0,
-    );*/
     return LoginOb(
       token: (json.containsKey('token') ? json['token'] : ''),
       username: (json.containsKey('username')) ? json['username'] : '',

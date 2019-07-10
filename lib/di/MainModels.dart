@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:rxdart/subjects.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +10,7 @@ import 'package:yek_nahal/models/forget_password_response.dart';
 import 'package:yek_nahal/models/login_response.dart';
 import 'package:yek_nahal/pages/page_auth.dart';
 import 'package:yek_nahal/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 mixin MainModel on Model {
 
@@ -60,7 +60,7 @@ mixin AuthModel on MainModel {
   }
 
   Future<LoginResponse> requestLogin(Map params) async {
-    LoginResponse loginResult = new LoginResponse();
+    LoginResponse loginResult = LoginResponse();
     try {
       final http.Response response = await http.post(api_login, body: params);
       if (response.statusCode != 200 && response.statusCode != 201) {
@@ -68,7 +68,7 @@ mixin AuthModel on MainModel {
       } else {
         var result = json.decode(response.body);
         LoginOb ob = (result['data'] != "") ? LoginOb.fromJson(result['data']) : null;
-        loginResult = new LoginResponse(status: result['status'], message: result['message'], data: ob);
+        loginResult = LoginResponse(status: result['status'], message: result['message'], data: ob);
         return loginResult;
       }
     } catch (error) {
@@ -99,4 +99,12 @@ mixin SharedModel on MainModel {
     prefs.setString(shared_token, token);
     return true;
   }
+}
+
+mixin NahalShopModel on MainModel {
+
+
+
+
+
 }

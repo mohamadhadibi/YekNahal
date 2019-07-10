@@ -5,6 +5,8 @@ const String api_auth             = _domain + "auth.php";
 const String api_login            = _domain + "login.php";
 const String api_forget_password  = _domain + "forgot_password.php";
 const String api_change_password  = _domain + "change_password.php";
+const String api_get_shop_info    = _domain + "nahals.php";
+const String api_payment          = 'https://final.1nahal.com/payment.php?';
 
 const String api_blog_search      = _domain + "blog_search.php";
 const String api_blog             = _domain + "blog.php";

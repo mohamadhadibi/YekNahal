@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
+import 'package:yek_nahal/pages/page_nahal_shop.dart';
 import 'package:yek_nahal/pages/page_profile.dart';
 import 'package:yek_nahal/pages/tab_home.dart';
 import 'package:yek_nahal/pages/tab_search.dart';
@@ -23,7 +24,7 @@ class _MainPage extends State<MainPage> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     SearchTab(),
-    Container(color: Colors.brown),
+    NahalShopPage(),
     HomeTab(),
     Container(color: Colors.blue),
     ProfilePage(),
