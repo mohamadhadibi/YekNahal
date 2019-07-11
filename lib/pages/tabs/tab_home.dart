@@ -55,15 +55,15 @@ class _HomeTab extends State<HomeTab> {
                 elevation: 7,
                 child: Container(
                   alignment: AlignmentDirectional.topCenter,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Image(
-                        width: 60,
-                        image: AssetImage('assets/images/ic_map_icon.png'),
-                      ),
-                      Text('مشاهده نقشه یک نهال'),
-                    ],
+                  child: FlatButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rout_yek_nahal_map,
+                      );
+                    },
+                    icon: Image.asset('assets/images/ic_map_icon.png', width: 60,),
+                    label: Text('مشاهده نقشه یک نهال'),
                   ),
                 ),
               ),
@@ -188,9 +188,10 @@ class _HomeTab extends State<HomeTab> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  setState(() {
-                    _token = "";
-                  });
+                  Navigator.pushNamed(
+                    context,
+                    rout_share,
+                  );
                 },
               ),
             )
