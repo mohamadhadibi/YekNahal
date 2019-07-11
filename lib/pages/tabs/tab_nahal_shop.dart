@@ -9,17 +9,17 @@ import 'package:yek_nahal/widgets/YeNahal.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-class NahalShopPage extends StatefulWidget {
+class NahalShopTab extends StatefulWidget {
 
-  NahalShopPage();
+  NahalShopTab();
 
   @override
   State<StatefulWidget> createState() {
-    return _NahalShopPage();
+    return _NahalShopTab();
   }
 }
 
-class _NahalShopPage extends State<NahalShopPage> {
+class _NahalShopTab extends State<NahalShopTab> {
   List<NahalOb> nahals = [];
   List<HemayatOb> hemayats = [];
   bool isDataLoaded = false;

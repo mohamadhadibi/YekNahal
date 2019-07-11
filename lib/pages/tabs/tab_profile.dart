@@ -4,14 +4,14 @@ import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/utils/utils.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfileTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ProfilePage();
+    return _ProfileTab();
   }
 }
 
-class _ProfilePage extends State<ProfilePage> {
+class _ProfileTab extends State<ProfileTab> {
   UserOb _user;
 
   @override

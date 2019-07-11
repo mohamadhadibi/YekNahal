@@ -25,10 +25,10 @@ class _MainPage extends State<MainPage> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     SearchTab(),
-    NahalShopPage(),
+    NahalShopTab(),
     HomeTab(),
-    GalleryPage(),
-    ProfilePage(),
+    GalleryTab(),
+    ProfileTab(),
   ];
 
   @override
