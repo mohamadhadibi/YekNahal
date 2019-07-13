@@ -1,4 +1,4 @@
-package com.example.yek_nahal;
+package com.yeknahal.yek_nahal;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
