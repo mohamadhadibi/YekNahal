@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yek_nahal/models/blogs_response.dart';
 import 'package:yek_nahal/utils/utils.dart';
+import 'package:yek_nahal/widgets/Toolbar.dart';
 
 class BlogPage extends StatefulWidget {
   BlogOb blog;
@@ -17,27 +18,7 @@ class _BlogPage extends State<BlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Container(
-          alignment: AlignmentDirectional.center,
-          margin: EdgeInsetsDirectional.only(end: 50),
-          child: Text(widget.blog.title,
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black87,
-          ),
-          onPressed: () => Navigator.pop(context, false),
-        ),
-        backgroundColor: Colors.white,
-      ),
+      appBar: makeAppbar(widget.blog.title,context),
       body: SingleChildScrollView(
           child: Column(
         children: <Widget>[
