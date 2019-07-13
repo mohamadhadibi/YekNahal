@@ -9,6 +9,8 @@ import 'package:yek_nahal/pages/page_share.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
 import 'package:yek_nahal/pages/page_yeknahal_map.dart';
 import 'package:yek_nahal/utils/routs.dart';
+import 'package:map_view/map_view.dart';
+import 'package:yek_nahal/utils/utils.dart';
 
 import 'models/blogs_response.dart';
 import 'pages/page_auth.dart';
@@ -18,6 +20,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    MapView.setApiKey(map_debug);
     return _MyApp();
   }
 }
