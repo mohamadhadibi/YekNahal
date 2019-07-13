@@ -17,6 +17,7 @@ class _YekNahalMapPage extends State<YekNahalMapPage> {
 
   @override
   void initState() {
+    super.initState();
     getStaticMap();
   }
 

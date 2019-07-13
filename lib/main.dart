@@ -31,6 +31,7 @@ class _MyApp extends State<MyApp> {
     return ScopedModel<MainScope>(
       model: MainScope(),
       child: MaterialApp(
+        title: 'یک نهال',
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
