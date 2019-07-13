@@ -14,4 +14,4 @@ const String api_blog             = _domain + "blog.php";
 const String shared_token         = "shared_token";
 const String image_place_holder   = "assets/images/ic_placeholder.png";
 
-const String map_debug            = '';AIzaSyA9X3za7zZFNupA7XX9LbMDVX32Dh7HdX0
+const String map_debug            = 'AIzaSyA9X3za7zZFNupA7XX9LbMDVX32Dh7HdX0';
