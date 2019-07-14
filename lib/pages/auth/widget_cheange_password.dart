@@ -18,6 +18,8 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
     'password': '',
     'confirm': '',
   };
+  final _passwordController = TextEditingController();
+  final _rePasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                             alignment: AlignmentDirectional.center,
                           ),
                           TextFormField(
+                            controller: _passwordController,
                             decoration: InputDecoration(
                               labelText: 'کلمه عبور',
                               filled: true,
@@ -63,6 +66,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                             height: 2,
                           ),
                           TextFormField(
+                            controller: _rePasswordController,
                             decoration: InputDecoration(
                               labelText: 'تکرار کلمه عبور',
                               filled: true,
@@ -87,7 +91,15 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  String _password = _passwordController.text;
+                                  String _rePassword = _rePasswordController.text;
+                                  if(_password == _rePassword){
+                                    //TODO: request to change password
+                                  }else{
+
+                                  }
+                                },
                               ),
                             ),
                           )

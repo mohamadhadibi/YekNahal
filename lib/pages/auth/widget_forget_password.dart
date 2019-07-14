@@ -18,6 +18,7 @@ class ForgetPasswordPage extends StatefulWidget {
 
 class _ForgetPasswordPage extends State<ForgetPasswordPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,7 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                 alignment: AlignmentDirectional.center,
                               ),
                               TextFormField(
+                                controller: _usernameController,
                                 initialValue: widget._email,
                                 validator: (String value) {
                                   if (value.isEmpty ||
@@ -65,12 +67,6 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                   fillColor: Colors.white,
                                 ),
                                 keyboardType: TextInputType.emailAddress,
-                                onSaved: (String value) {
-                                  widget._email = value;
-                                },
-                                onFieldSubmitted: (String value){
-                                  widget._email = value;
-                                },
                               ),
                               Container(
                                 margin: EdgeInsets.all(20),
@@ -87,6 +83,8 @@ class _ForgetPasswordPage extends State<ForgetPasswordPage> {
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     onPressed: () {
+
+                                      widget._email = _usernameController.text;
                                       Map _formData = {
                                         'email': widget._email,
                                       };

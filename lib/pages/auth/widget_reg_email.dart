@@ -20,6 +20,7 @@ class _RegEmailPage extends State<RegEmailPage> {
   Map _formData = {
     'email': '',
   };
+  final _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,7 @@ class _RegEmailPage extends State<RegEmailPage> {
                             alignment: AlignmentDirectional.center,
                           ),
                           TextFormField(
+                            controller: _usernameController,
                             validator: (String value) {
                               if (value.isEmpty ||
                                   !RegExp(r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$')
@@ -65,12 +67,6 @@ class _RegEmailPage extends State<RegEmailPage> {
                               fillColor: Colors.white,
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            onSaved: (String value) {
-                              _formData['email'] = value;
-                            },
-                            onFieldSubmitted: (String value){
-                              _formData['email'] = value;
-                            },
                           ),
                           Container(
                             margin: EdgeInsets.all(20),
@@ -87,7 +83,8 @@ class _RegEmailPage extends State<RegEmailPage> {
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () {
-                                  widget._setEmail(_formData['email']);
+                                  _formData['email'] = _usernameController.text;
+                                  widget._setEmail(_usernameController.text);
                                   widget._login(_formData);
                                 },
                               ),

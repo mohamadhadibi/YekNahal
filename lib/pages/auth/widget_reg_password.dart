@@ -22,6 +22,7 @@ class _RegPasswordPage extends State<RegPasswordPage> {
     'email': '',
     'password': '',
   };
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,7 @@ class _RegPasswordPage extends State<RegPasswordPage> {
                                 alignment: AlignmentDirectional.center,
                               ),
                               TextFormField(
+                                controller: _passwordController,
                                 validator: (String value) {
                                   if (value.isEmpty || value.length <= 3) {
                                     return 'کلمه عبور وارد شده معتبر نیست!';
@@ -67,12 +69,6 @@ class _RegPasswordPage extends State<RegPasswordPage> {
                                   fillColor: Colors.white,
                                 ),
                                 obscureText: true,
-                                onSaved: (String value) {
-                                  _formData['password'] = value;
-                                },
-                                onFieldSubmitted: (String value){
-                                  _formData['password'] = value;
-                              },
                               ),
                               Container(
                                 margin: EdgeInsets.all(20),
@@ -90,6 +86,7 @@ class _RegPasswordPage extends State<RegPasswordPage> {
                                     ),
                                     onPressed: () {
                                       _formData['email'] = widget._email;
+                                      _formData['password'] = _passwordController.text;
                                       widget._login(_formData);
                                     },
                                   ),
