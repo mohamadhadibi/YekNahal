@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:map_view/map_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yek_nahal/adapter/adapter_blog.dart';
@@ -27,7 +28,7 @@ class _HomeTab extends State<HomeTab> {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
         _token = model.getToken();
-        requestGetPosts(_token, 1).then((value){
+        requestGetPosts(_token, 1).then((value) {
           if (value as bool != false) {
             //TODO
           }
@@ -57,12 +58,16 @@ class _HomeTab extends State<HomeTab> {
                   alignment: AlignmentDirectional.topCenter,
                   child: FlatButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(
+                      showLiveMap();
+                      /*Navigator.pushNamed(
                         context,
                         rout_yek_nahal_map,
-                      );
+                      );*/
                     },
-                    icon: Image.asset('assets/images/ic_map_icon.png', width: 60,),
+                    icon: Image.asset(
+                      'assets/images/ic_map_icon.png',
+                      width: 60,
+                    ),
                     label: Text('مشاهده نقشه یک نهال'),
                   ),
                 ),
@@ -174,7 +179,8 @@ class _HomeTab extends State<HomeTab> {
                   margin: EdgeInsetsDirectional.only(bottom: 10),
                 ),
                 subtitle: Container(
-                  child: Text("کاشته شده: ${model.getUser().plantedNumber} نهال"),
+                  child:
+                      Text("کاشته شده: ${model.getUser().plantedNumber} نهال"),
                 ),
               ),
             ),
@@ -234,4 +240,38 @@ class _HomeTab extends State<HomeTab> {
     return prefs.getString(shared_token) ?? "";
   }
 
+  void showLiveMap() async {
+    Marker marker = Marker(
+      'position',
+      'محل کاشت درخت های یک نهال',
+      30.284791,
+      57.126263,
+      markerIcon: new MarkerIcon(
+        'assets/images/ic_marker.png', //Asset to be used as icon
+        width: 70, //New width for the asset
+        height: 70, // New height for the asset
+      ),
+    );
+    final cameraPosition = CameraPosition(Location(30.284791, 57.126263), 15);
+    final mapView = MapView();
+    mapView.show(
+        MapOptions(
+          initialCameraPosition: cameraPosition,
+          mapViewType: MapViewType.normal,
+          title: 'یک نهال',
+        ),
+        toolbarActions: [
+          ToolbarAction('بستن', 1),
+        ]);
+
+    mapView.onMapReady.listen((_) {
+      mapView.setMarkers([marker]);
+    });
+
+    mapView.onToolbarAction.listen((id) {
+      if (id == 1) {
+        mapView.dismiss();
+      }
+    });
+  }
 }

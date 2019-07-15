@@ -33,7 +33,7 @@ class _SharePage extends State<SharePage> {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
         return Scaffold(
-          appBar: makeAppbar('اشتراک گزاری', context),
+          appBar: makeAppbar('اشتراک گذاری', context),
           body: SingleChildScrollView(
             child: Container(
               child: Column(
