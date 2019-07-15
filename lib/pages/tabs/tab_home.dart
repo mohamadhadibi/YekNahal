@@ -180,7 +180,7 @@ class _HomeTab extends State<HomeTab> {
                 ),
                 subtitle: Container(
                   child:
-                      Text("کاشته شده: ${model.getUser().plantedNumber} نهال"),
+                      Text("کاشته شده: ${(model.getUser()!=null) ? model.getUser().plantedNumber : -1} نهال"),
                 ),
               ),
             ),
