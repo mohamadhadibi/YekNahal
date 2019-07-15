@@ -85,10 +85,10 @@ class _SplashPage extends State<SplashPage> {
           data = UserOb.fromJson(result['data']);
         } else {}
         mainModel.setToken(token);
+        mainModel.setUser(data);
         Navigator.pushReplacementNamed(
           context,
-          rout_main,
-          arguments: data,
+          rout_main
         );
         return true;
       }

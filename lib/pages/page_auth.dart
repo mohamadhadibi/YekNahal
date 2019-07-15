@@ -100,7 +100,6 @@ class _AuthPage extends State<AuthPage> {
           case 202:
             /*user password verified and login complete*/
             this.mainModel.saveToken(response.data.token).then((done) {
-              mainModel.setToken(response.data.token);
               UserOb user = UserOb(
                 avatarUrl: response.data.avatarUrl,
                 email: response.data.email,
@@ -108,10 +107,11 @@ class _AuthPage extends State<AuthPage> {
                 plantedNumber: response.data.plantedNumber,
                 waitingPlantedNumber: response.data.waitingPlantedNumber,
               );
+              mainModel.setToken(response.data.token);
+              mainModel.setUser(user);
               Navigator.pushReplacementNamed(
                 context,
-                rout_main,
-                arguments: user,
+                rout_main
               );
             });
             break;

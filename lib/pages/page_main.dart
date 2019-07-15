@@ -9,11 +9,6 @@ import 'package:yek_nahal/pages/tabs/tab_home.dart';
 import 'package:yek_nahal/pages/tabs/tab_search.dart';
 
 class MainPage extends StatefulWidget {
-  UserOb user;
-
-  MainPage(UserOb user) {
-    this.user = user;
-  }
 
   @override
   State<StatefulWidget> createState() {
@@ -35,7 +30,6 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainScope>(
       builder: (BuildContext context, Widget parent, MainScope model) {
-        model.setUser(widget.user);
         return Scaffold(
           body: _children[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(

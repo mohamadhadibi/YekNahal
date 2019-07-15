@@ -51,9 +51,8 @@ class _MyApp extends State<MyApp> {
           final arguments = settings.arguments;
           switch (settings.name) {
             case rout_main:
-              UserOb ob = (arguments is UserOb) ? arguments : null;
               return MaterialPageRoute(
-                builder: (BuildContext context) => MainPage(ob),
+                builder: (BuildContext context) => MainPage(),
               );
               break;
 
