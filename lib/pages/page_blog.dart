@@ -18,26 +18,27 @@ class _BlogPage extends State<BlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: makeAppbar(widget.blog.title,context),
+      appBar: makeAppbar(widget.blog.title, context),
       body: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          FadeInImage(
-            image: NetworkImage(widget.blog.image),
-            placeholder: AssetImage(image_place_holder),
-          ),
-          Container(
-            alignment: AlignmentDirectional.center,
-            margin: EdgeInsets.all(20),
-            child: Text(
-              widget.blog.body,
-              style: TextStyle(
-                height: 1.5,
+        child: Column(
+          children: <Widget>[
+            FadeInImage(
+              image: NetworkImage(widget.blog.image),
+              placeholder: AssetImage(image_place_holder),
+            ),
+            Container(
+              alignment: AlignmentDirectional.center,
+              margin: EdgeInsets.all(20),
+              child: Text(
+                widget.blog.body,
+                style: TextStyle(
+                  height: 1.5,
+                ),
               ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }

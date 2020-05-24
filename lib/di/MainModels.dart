@@ -91,6 +91,14 @@ mixin AuthModel on MainModel {
     }
   }
 
+  Future<bool> logout() async{
+    token = '';
+    setUser(null);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(shared_token, token);
+    return true;
+  }
+
 }
 
 mixin SharedModel on MainModel {

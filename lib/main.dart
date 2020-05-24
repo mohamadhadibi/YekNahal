@@ -4,7 +4,9 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:yek_nahal/di/MainScope.dart';
 import 'package:yek_nahal/models/auth_response.dart';
 import 'package:yek_nahal/pages/page_blog.dart';
+import 'package:yek_nahal/pages/page_edit_profile.dart';
 import 'package:yek_nahal/pages/page_main.dart';
+import 'package:yek_nahal/pages/page_our_team.dart';
 import 'package:yek_nahal/pages/page_share.dart';
 import 'package:yek_nahal/pages/page_splash.dart';
 import 'package:yek_nahal/pages/page_yeknahal_map.dart';
@@ -83,6 +85,18 @@ class _MyApp extends State<MyApp> {
             case rout_yek_nahal_map:
               return MaterialPageRoute(
                 builder: (BuildContext context) => YekNahalMapPage(),
+              );
+              break;
+
+            case rout_our_team:
+              return MaterialPageRoute(
+                builder: (BuildContext context) => OurTeamPage(),
+              );
+              break;
+
+            case rout_edit_profile:
+              return MaterialPageRoute(
+                builder: (BuildContext context) => EditProfilePage(),
               );
               break;
 

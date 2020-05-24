@@ -106,7 +106,12 @@ class _ProfileTab extends State<ProfileTab> {
                                     label: Text('نهال های خریداری شده'),
                                   ),
                                   FlatButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        rout_edit_profile,
+                                      );
+                                    },
                                     icon: Icon(Icons.color_lens),
                                     label: Text('ویرایش پروفایل'),
                                   ),
@@ -116,17 +121,32 @@ class _ProfileTab extends State<ProfileTab> {
                                     label: Text('درباره یک نهال'),
                                   ),
                                   FlatButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                    },
                                     icon: Icon(Icons.color_lens),
                                     label: Text('پشتیبانی'),
                                   ),
                                   FlatButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        rout_our_team,
+                                      );
+                                    },
                                     icon: Icon(Icons.color_lens),
                                     label: Text('تیم ما'),
                                   ),
                                   FlatButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      model.logout().then((bool result){
+                                        if(result){
+                                          setState(() {
+                                            _user = model.getUser();
+                                          });
+                                        }
+                                      });
+                                    },
                                     icon: Icon(Icons.color_lens),
                                     label: Text('خروج از حساب کاربری'),
                                   ),

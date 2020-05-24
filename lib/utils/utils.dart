@@ -1,5 +1,5 @@
 
-const String _domain              = "https://final.1nahal.com/api/v1/";
+const String _domain              = "https://final.1nahal.com/api/v1.2/";
 
 const String api_auth             = _domain + "auth.php";
 const String api_login            = _domain + "login.php";
